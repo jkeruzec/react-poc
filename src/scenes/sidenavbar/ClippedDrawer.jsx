@@ -15,6 +15,8 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
+import HomePage from 'scenes/homepage/HomePage';
+
 
 class ClippedDrawer extends React.Component {
     
@@ -66,29 +68,30 @@ class ClippedDrawer extends React.Component {
         return (
                 <div className={classes.root}>
                 <div className={classes.appFrame}>
-                  <AppBar
-                    className={classNames(classes.appBar, {
-                      [classes.appBarShift]: open,
-                      [classes[`appBarShift-left`]]: open,
-                    })}
-                  >
-                    <Toolbar disableGutters={!open}>
-                      <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={this.handleDrawerOpen}
-                        className={classNames(classes.menuButton, open && classes.hide)}
-                      >
-                        <MenuIcon />
-                      </IconButton>
-                      <Typography variant="title" color="inherit" noWrap>
-                        Persistent drawer
-                      </Typography>
-                    </Toolbar>
-                  </AppBar>
-                  {drawer}
+                <AppBar
+                className={classNames(classes.appBar, {
+                [classes.appBarShift]: open,
+                [classes[`appBarShift-left`]]: open,
+                })}
+                >
+                <Toolbar disableGutters={!open}>
+                <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={this.handleDrawerOpen}
+                className={classNames(classes.menuButton, open && classes.hide)}
+                >
+                <MenuIcon />
+                </IconButton>
+                <Typography variant="title" color="inherit" noWrap>
+                Persistent drawer
+                </Typography>
+                </Toolbar>
+                </AppBar>
+                {drawer}
+                <HomePage open={open} />
                 </div>
-              </div>
+                </div>
         );
     }
     
