@@ -7,69 +7,98 @@ import Toolbar from 'material-ui/Toolbar';
 import List from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-//import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import classNames from 'classnames';
+import { generic1 } from './menus/genericItems1';
+import { generic2 } from './menus/genericItems2';
+import {styles} from './ClippedDrawerStyle';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
+import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
+import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 
-const drawerWidth = 240;
-
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-        height: 430,
-        zIndex: 1,
-        overflow: 'hidden',
-        position: 'relative',
-        display: 'flex',
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-    },
-    drawerPaper: {
-        position: 'relative',
-        width: drawerWidth,
-    },
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing.unit * 3,
-        minWidth: 0, // So the Typography noWrap works
-    },
-    toolbar: theme.mixins.toolbar,
-});
-
-function ClippedDrawer(props) {
-    const { classes } = props;
+class ClippedDrawer extends React.Component {
     
-    return (
-            <div className={classes.root}>
-            <AppBar position="absolute" className={classes.appBar}>
-            <Toolbar>
-            <Typography variant="title" color="inherit" noWrap>
-            Clipped drawer
-            </Typography>
-            </Toolbar>
-            </AppBar>
-            <Drawer
-            variant="permanent"
-            classes={{
-            paper: classes.drawerPaper,
-            }}
-            >
-            <div className={classes.toolbar} />
-            <List>{/*{mailFolderListItems}*/}
-            </List>
-            <Divider />
-            <List>{/*{otherMailFolderListItems}*/}</List>
-            </Drawer>
-            <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
-            </main>
-            </div>
-    );
-}
+    state = {
+            open: false
+    };
+    
+    handleDrawerOpen = () => {
+        this.setState({ open: true });
+    };
+    
+    handleDrawerClose = () => {
+        this.setState({ open: false });
+    };
+    
+    handleChangeAnchor = event => {
+        this.setState({
+            anchor: event.target.value,
+        });
+    };
+    
+    render() {
+        
+        const { classes, theme } = this.props;
+        const {open} = this.state;
+        
+        const drawer = (
+                <Drawer
+                variant="persistent"
+                anchor="left"
+                open={open}
+                classes={{
+                docked: classes.dockedPaper,
+                paper: classes.drawerPaper
+                }}
+                >
+                <div className={classes.drawerHeader}>
+                <IconButton onClick={this.handleDrawerClose}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </IconButton>
+                </div>
+                <Divider />
+                <List>{generic1}</List>
+                <Divider />
+                <List>{generic2}</List>
+                </Drawer>
+        );
+        
+        return (
+                <div className={classes.root}>
+                <div className={classes.appFrame}>
+                  <AppBar
+                    className={classNames(classes.appBar, {
+                      [classes.appBarShift]: open,
+                      [classes[`appBarShift-left`]]: open,
+                    })}
+                  >
+                    <Toolbar disableGutters={!open}>
+                      <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={this.handleDrawerOpen}
+                        className={classNames(classes.menuButton, open && classes.hide)}
+                      >
+                        <MenuIcon />
+                      </IconButton>
+                      <Typography variant="title" color="inherit" noWrap>
+                        Persistent drawer
+                      </Typography>
+                    </Toolbar>
+                  </AppBar>
+                  {drawer}
+                </div>
+              </div>
+        );
+    }
+    
+};
 
 ClippedDrawer.propTypes = {
         classes: PropTypes.object.isRequired,
+        theme : PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ClippedDrawer);
+export default withStyles(styles, {withTheme: true})(ClippedDrawer);
+
+
