@@ -4,12 +4,14 @@ import {styles} from './HomePageStyle';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
+import config from 'react-global-configuration';
+import { translate } from 'react-i18next';
 
 class HomePage extends React.Component {
     
     render() {
         
-        const {classes, open} = this.props;
+        const {classes, open, t} = this.props;
         
         return (
                 <main
@@ -19,7 +21,7 @@ class HomePage extends React.Component {
                 })}
                 >
                 <div className={classes.drawerHeader} />
-                <Typography>{'Hello World!'}</Typography>
+                <Typography>{t('hello') + config.get('apiPort')}</Typography>
                 </main>
         );
     }
@@ -30,4 +32,4 @@ HomePage.propTypes = {
         classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, {withTheme: true})(HomePage);
+export default translate()(withStyles(styles, {withTheme: true})(HomePage));
