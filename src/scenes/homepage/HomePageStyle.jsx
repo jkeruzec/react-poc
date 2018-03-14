@@ -1,4 +1,4 @@
-import {drawerWidth} from 'scenes/common/CommonStyle';
+import {drawerWidth} from 'scenes/common/CommonStyle'
 
 
 export const styles = theme => ({
