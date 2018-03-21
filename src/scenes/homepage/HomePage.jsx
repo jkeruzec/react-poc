@@ -7,19 +7,17 @@ import Typography from 'material-ui/Typography';
 import config from 'react-global-configuration'
 import { translate } from 'react-i18next'
 import HomePageFormDef from './HomePageFormDef'
-import Form from 'components/Form/Form'
+import Form from '../../components/Form/Form'
 import DevTools from 'mobx-react-form-devtools'
-import testsCollection from 'store/collection/TestsCollection'
 
 class HomePage extends React.Component {
     
-    componentWillMount() {
-        testsCollection.fetch();
-    }
+//    componentWillMount() {
+//        
+//    }
     
     render() {
         
-        const tests = testsCollection;
         
         const form = new HomePageFormDef();
         DevTools.register({ form });

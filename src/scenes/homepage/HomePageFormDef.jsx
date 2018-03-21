@@ -1,5 +1,6 @@
 import { Form } from 'mobx-react-form'
 import validatorjs from 'validatorjs'
+import testsCollection from '../../store/collection/TestsCollection'
 
 export default class HomePageFormDef extends Form {
     
@@ -11,26 +12,37 @@ export default class HomePageFormDef extends Form {
         return { dvr: validatorjs };
     }
     
+    /**
+     * Setup form property
+     */
     setup() {
         
-        const fields = [{
-            name: 'email',
-            label: 'Email',
-            placeholder: 'Insert Email',
-            rules: 'required|email|string|between:5,25'
-        }];
+        const fields = {
+                email: {
+                    label: 'Email',
+                    placeholder: 'Insert Email',
+                    rules: 'required|email|string|between:5,25',
+                    default: 'empty...'
+                }
+        };
         
-        const values= {
-                email : 'test@test.fr'
-        }
-        
-        return ({fields, values});
+        return ({fields});
     }
     
+    /**
+     * Hook serves like a controller for Javascript
+     */
     hooks() {
         return {
             
             onInit(form) {
+                testsCollection.fetch().then(
+                        val => {
+                            form.update(val[0]);
+                        }, val  => {
+                            console.debug("error");
+                        }
+                        );
                 console.log(form.values());
             },
             
