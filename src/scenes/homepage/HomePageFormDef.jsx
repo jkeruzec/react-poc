@@ -1,8 +1,11 @@
 import { Form } from 'mobx-react-form'
 import validatorjs from 'validatorjs'
 import testsCollection from '../../store/collection/TestsCollection'
+import TestModel from '../../store/model/TestModel'
 
 export default class HomePageFormDef extends Form {
+    
+    testModel;
     
     /*
     Below we are returning a `plugins` object using the `validatorjs` package
@@ -17,16 +20,25 @@ export default class HomePageFormDef extends Form {
      */
     setup() {
         
+        this.testModel = new TestModel({id: 1});
+        this.printEmail(this.testModel);
         const fields = {
                 email: {
                     label: 'Email',
                     placeholder: 'Insert Email',
                     rules: 'required|email|string|between:5,25',
-                    default: 'empty...'
+                default: 'empty...'
                 }
         };
         
         return ({fields});
+    }
+    
+    async printEmail(testModel) {
+        const promise = testModel.fetch();
+        console.log(testModel.isRequest('fetching'));
+        await promise;
+        console.log(testModel.get('email'));
     }
     
     /**
@@ -42,7 +54,7 @@ export default class HomePageFormDef extends Form {
                         }, val  => {
                             console.debug("error");
                         }
-                        );
+                );
                 console.log(form.values());
             },
             

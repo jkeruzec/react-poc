@@ -11,25 +11,25 @@ export const generic1 = (
 		<ListItemIcon>
 		<InboxIcon />
 		</ListItemIcon>
-		<ListItemText primary="Inbox" />
+		<ListItemText primary="Form 1" />
 			</ListItem>
 		<ListItem button>
 		<ListItemIcon>
 		<StarIcon />
 		</ListItemIcon>
-		<ListItemText primary="Starred" />
+		<ListItemText primary="Form 2" />
 			</ListItem>
 		<ListItem button>
 		<ListItemIcon>
 		<SendIcon />
 		</ListItemIcon>
-		<ListItemText primary="Send mail" />
+		<ListItemText primary="Form 3" />
 			</ListItem>
 		<ListItem button>
 		<ListItemIcon>
 		<DraftsIcon />
 		</ListItemIcon>
-		<ListItemText primary="Drafts" />
+		<ListItemText primary="Form 4" />
 			</ListItem>
 		</div>
 );

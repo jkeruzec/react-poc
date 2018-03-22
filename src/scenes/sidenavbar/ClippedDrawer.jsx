@@ -16,8 +16,9 @@ import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import HomePage from 'scenes/homepage/HomePage';
+import { observer } from 'mobx-react';
 
-
+@observer
 class ClippedDrawer extends React.Component {
     
     state = {
