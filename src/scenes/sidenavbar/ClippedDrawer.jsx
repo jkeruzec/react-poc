@@ -21,6 +21,11 @@ import { Switch, Route, withRouter  } from 'react-router-dom'
 
 class ClippedDrawer extends React.Component {
     
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+        theme : PropTypes.object.isRequired
+    };
+    
     state = {
             open: false,
             refresh: false
@@ -103,10 +108,6 @@ class ClippedDrawer extends React.Component {
     
 };
 
-ClippedDrawer.propTypes = {
-        classes: PropTypes.object.isRequired,
-        theme : PropTypes.object.isRequired
-};
 
 export default withRouter(withStyles(styles, {withTheme: true})(ClippedDrawer));
 

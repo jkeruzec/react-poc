@@ -14,6 +14,10 @@ import { observable, computed } from "mobx";
 
 class HomePage extends React.Component {
     
+    static propTypes = {
+            classes: PropTypes.object.isRequired
+    };
+    
     @observable price = 3;
     @observable amount = 2;
     
@@ -47,11 +51,6 @@ class HomePage extends React.Component {
                 </main>
         );
     }
-};
-
-
-HomePage.propTypes = {
-        classes: PropTypes.object.isRequired
 };
 
 export default observer(translate()(withStyles(styles, {withTheme: true})(HomePage)));
