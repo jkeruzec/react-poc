@@ -40,10 +40,10 @@ class HomePage extends React.Component {
                 [classes[`contentShift-left`]]: open,
                 })}
                 >
-                <div className={classes.drawerHeader} />
-                <Typography>{t('hello') + config.get('apiPort')}</Typography>
-                <Form form={form} />
-                {total}
+                    <div className={classes.drawerHeader} />
+                    <Typography>{t('hello') + config.get('apiPort')}</Typography>
+                    <Form form={form} />
+                    {total}
                 </main>
         );
     }

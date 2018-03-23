@@ -16,13 +16,14 @@ import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import HomePage from 'scenes/homepage/HomePage';
-import { observer } from 'mobx-react';
+import { Switch, Route, withRouter  } from 'react-router-dom'
 
-@observer
+
 class ClippedDrawer extends React.Component {
     
     state = {
-            open: false
+            open: false,
+            refresh: false
     };
     
     handleDrawerOpen = () => {
@@ -55,9 +56,9 @@ class ClippedDrawer extends React.Component {
                 }}
                 >
                 <div className={classes.drawerHeader}>
-                <IconButton onClick={this.handleDrawerClose}>
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                </IconButton>
+                    <IconButton onClick={this.handleDrawerClose}>
+                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    </IconButton>
                 </div>
                 <Divider />
                 <List>{generic1}</List>
@@ -68,30 +69,34 @@ class ClippedDrawer extends React.Component {
         
         return (
                 <div className={classes.root}>
-                <div className={classes.appFrame}>
-                <AppBar
-                className={classNames(classes.appBar, {
-                [classes.appBarShift]: open,
-                [classes[`appBarShift-left`]]: open,
-                })}
-                >
-                <Toolbar disableGutters={!open}>
-                <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, open && classes.hide)}
-                >
-                <MenuIcon />
-                </IconButton>
-                <Typography variant="title" color="inherit" noWrap>
-                Persistent drawer
-                </Typography>
-                </Toolbar>
-                </AppBar>
-                {drawer}
-                <HomePage open={open} />
-                </div>
+                    <div className={classes.appFrame}>
+                        <AppBar
+                        className={classNames(classes.appBar, {
+                        [classes.appBarShift]: open,
+                        [classes[`appBarShift-left`]]: open,
+                        })}
+                        >
+                            <Toolbar disableGutters={!open}>
+                                <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={this.handleDrawerOpen}
+                                className={classNames(classes.menuButton, open && classes.hide)}
+                                >
+                                <MenuIcon />
+                                </IconButton>
+                                <Typography variant="title" color="inherit" noWrap>
+                                Persistent drawer
+                                </Typography>
+                            </Toolbar>
+                        </AppBar>
+                        {drawer}
+                        
+                            <Switch>
+                                <Route exact path='/' render={() => <HomePage open={open} />}/>  
+                                <Route exact path='/form2' render={() => <p>Test</p>}/>
+                            </Switch>
+                    </div>
                 </div>
         );
     }
@@ -103,6 +108,6 @@ ClippedDrawer.propTypes = {
         theme : PropTypes.object.isRequired
 };
 
-export default withStyles(styles, {withTheme: true})(ClippedDrawer);
+export default withRouter(withStyles(styles, {withTheme: true})(ClippedDrawer));
 
 

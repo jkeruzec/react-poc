@@ -8,6 +8,7 @@ import conf from 'configuration/Conf'
 import 'utils/i18n';
 import prepareApiClient from 'utils/ApiClient';
 import { useStrict } from 'mobx';
+import { BrowserRouter } from 'react-router-dom'
 
 
 useStrict(true);
@@ -15,5 +16,9 @@ config.set(conf);
 prepareApiClient(config.get('apiHost'), config.get('apiPort'));
 
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>, 
+        document.querySelector('#root'));
 registerServiceWorker();
